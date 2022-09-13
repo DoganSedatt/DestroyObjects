@@ -38,4 +38,12 @@ public class Target : MonoBehaviour
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
         //X düzleminde -4.3f ile 4.3f arasýnda rastgele bir deðer dönder. Bu objenin yatayda baþlangýç konumunu belirleyecek. Y=-1;  
     }
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);//Fare ile týkladýðým nesnenin yok olmasýný saðlýyor
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);//Oyun ekranýndan aþaðýya düþen objeler sensör nesnesinin collider'ý ile çarpýþýyor ve yok oluyor.
+    }
 }
