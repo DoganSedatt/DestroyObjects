@@ -12,7 +12,7 @@ public class Target : MonoBehaviour
     private float ySpawnPos = -1f;
     private GameManager gameManager;//GameManager.cs scriptini tutacak olan deðiþken
     public int pointValue;//Yok edilen her objenin kendine ait + veya - puaný olacak.
-    public ParticleSystem particle;
+    public ParticleSystem particle;//Patlama efekti
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//GameManager objesini bul ve içindeki GameManager kodunu al. 
@@ -43,12 +43,20 @@ public class Target : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        Destroy(gameObject);//Fare ile týkladýðým nesnenin yok olmasýný saðlýyor
-        Instantiate(particle, transform.position, particle.transform.rotation);//Nesne yok olunca patlama efekti oluþtur.
-        gameManager.UpdateScore(pointValue);//Nesne yok oldukça nesnenin türüne göre puan ekleyecek.
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);//Fare ile týkladýðým nesnenin yok olmasýný saðlýyor
+            Instantiate(particle, transform.position, particle.transform.rotation);//Nesne yok olunca patlama efekti oluþtur.
+            gameManager.UpdateScore(pointValue);//Nesne yok oldukça nesnenin türüne göre puan ekleyecek.
+        }
+       
     }
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);//Oyun ekranýndan aþaðýya düþen objeler sensör nesnesinin collider'ý ile çarpýþýyor ve yok oluyor.
+        if (!other.CompareTag("Bad"))//Yok olan nesne Bad etiketine sahip deðilse yani bomba deðilse Game over yazýsý ekranda göster.  
+        {
+            gameManager.GameOver();
+        }
     }
 }
