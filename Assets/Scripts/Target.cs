@@ -11,6 +11,7 @@ public class Target : MonoBehaviour
     private float xRange = 4.3f;
     private float ySpawnPos = -1f;
     private GameManager gameManager;//GameManager.cs scriptini tutacak olan deðiþken
+    public int pointValue;//Yok edilen her objenin kendine ait + veya - puaný olacak.
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//GameManager objesini bul ve içindeki GameManager kodunu al. 
@@ -42,7 +43,7 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);//Fare ile týkladýðým nesnenin yok olmasýný saðlýyor
-        gameManager.UpdateScore(2);//Nesne yok oldukça 2 puan ekleyecek.
+        gameManager.UpdateScore(pointValue);//Nesne yok oldukça nesnenin türüne göre puan ekleyecek.
     }
     private void OnTriggerEnter(Collider other)
     {
