@@ -10,9 +10,10 @@ public class Target : MonoBehaviour
     private float maxTorgue = 10;
     private float xRange = 4.3f;
     private float ySpawnPos = -1f;
-
+    private GameManager gameManager;//GameManager.cs scriptini tutacak olan deðiþken
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//GameManager objesini bul ve içindeki GameManager kodunu al. 
         targetRb = GetComponent<Rigidbody>();
         //Eski kod=targetRb.AddForce(Vector3.up * Random.Range(12, 16), ForceMode.Impulse);//Yukarýya doðru 12 ile 16 deðerleri arasýnda güce sahip bir itki kuvveti uygular.
         //Eski kod=targetRb.AddTorque(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10),ForceMode.Impulse);//Objenin x,y ve z rotasyon deðerlerine itki kuvveti uygular ve dönmesini saðlar.
@@ -41,6 +42,7 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);//Fare ile týkladýðým nesnenin yok olmasýný saðlýyor
+        gameManager.UpdateScore(2);//Nesne yok oldukça 2 puan ekleyecek.
     }
     private void OnTriggerEnter(Collider other)
     {
