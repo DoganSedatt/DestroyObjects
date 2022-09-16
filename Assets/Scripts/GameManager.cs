@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     private int score;
     public bool isGameActive=true;
+    public Button restartGameButton;
     void Start()
     {
         StartCoroutine(SpawnTarget());
@@ -35,9 +38,14 @@ public class GameManager : MonoBehaviour
         score += scoreToAdd;
         scoreText.text = "Puan:" + score;
     }
-    public void GameOver()
+    public void GameOver()//GameOver metodu
     {
         gameOverText.gameObject.SetActive(true);
         isGameActive = false;
+        restartGameButton.gameObject.SetActive(true);
+    }
+    public void RestartGame()//RestartGame metodu
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
